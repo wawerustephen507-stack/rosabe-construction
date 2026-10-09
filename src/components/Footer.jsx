@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin, Clock, CalendarCheck } from 'lucide-react';
 import Logo from './Logo';
 import { siteData } from '../data/siteData';
 
-export default function Footer({ onOpenQuote, onOpenLegal }) {
+export default function Footer({ onOpenQuote, onOpenLegal, onOpenAdmin }) {
   const { email, phones, location } = siteData.contacts;
 
   return (
@@ -100,10 +100,10 @@ export default function Footer({ onOpenQuote, onOpenLegal }) {
 
         </div>
 
-        {/* Bottom Bar with Active Legal Modals */}
+        {/* Bottom Bar with Active Legal Modals & Staff Portal Link */}
         <div className="border-t border-slate-800/80 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
           <p>© {new Date().getFullYear()} Rosabe Construction. All rights reserved.</p>
-          <div className="flex flex-wrap gap-5 text-xs">
+          <div className="flex flex-wrap items-center gap-5 text-xs">
             <button 
               onClick={() => onOpenLegal && onOpenLegal('privacy')} 
               className="hover:text-amber-400 transition"
@@ -121,6 +121,12 @@ export default function Footer({ onOpenQuote, onOpenLegal }) {
               className="hover:text-amber-400 transition"
             >
               Cookie Policy
+            </button>
+            <button 
+              onClick={() => onOpenAdmin && onOpenAdmin()} 
+              className="text-slate-400 hover:text-amber-400 font-semibold border-l border-slate-700 pl-4 transition flex items-center gap-1.5"
+            >
+              <span>🔒</span> Staff Portal
             </button>
           </div>
         </div>

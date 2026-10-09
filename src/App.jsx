@@ -11,13 +11,32 @@ import QuoteModal from './components/QuoteModal';
 import WhatsAppWidget from './components/WhatsAppWidget';
 import LegalModal from './components/LegalModal';
 import CookieBanner from './components/CookieBanner';
+import AdminPortal from './components/AdminPortal';
 import { ArrowRight } from 'lucide-react';
 
 export default function App() {
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [legalModalType, setLegalModalType] = useState(null); // 'privacy' | 'terms' | 'cookies' | null
 
+  // Route & Hash detection for Admin Portal
+  useEffect(() => {
+    const handleRouteCheck = () => {
+      if (
+        window.location.hash.toLowerCase().includes('admin') || 
+        window.location.search.toLowerCase().includes('admin')
+      ) {
+        setIsAdminOpen(true);
+      }
+    };
+
+    handleRouteCheck();
+    window.addEventListener('hashchange', handleRouteCheck);
+    return () => window.removeEventListener('hashchange', handleRouteCheck);
+  }, []);
+
+  // Section highlight on scroll
   useEffect(() => {
     const sectionIds = ['home', 'services', 'projects', 'about', 'contact'];
     const handleScroll = () => {
@@ -71,9 +90,10 @@ export default function App() {
       <Footer 
         onOpenQuote={() => setIsQuoteOpen(true)} 
         onOpenLegal={(type) => setLegalModalType(type)} 
+        onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
-      {/* Popups & Widgets */}
+      {/* Popups, Portals & Widgets */}
       <QuoteModal isOpen={isQuoteOpen} onClose={() => setIsQuoteOpen(false)} />
       <WhatsAppWidget />
       <LegalModal 
@@ -82,6 +102,17 @@ export default function App() {
         onClose={() => setLegalModalType(null)} 
       />
       <CookieBanner onOpenPolicy={(type) => setLegalModalType(type)} />
+      
+      {/* Client Admin Upload Portal */}
+      <AdminPortal 
+        isOpen={isAdminOpen} 
+        onClose={() => {
+          setIsAdminOpen(false);
+          if (window.location.hash.toLowerCase().includes('admin')) {
+            window.history.pushState(null, '', window.location.pathname);
+          }
+        }} 
+      />
     </div>
   );
 }
