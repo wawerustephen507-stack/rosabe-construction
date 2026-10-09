@@ -78,11 +78,11 @@ export default function About({ onOpenQuote }) {
           {/* Right Image Showcase */}
           <div className="lg:col-span-5 relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img 
-                src="https://images.unsplash.com/photo-1541888946425-d0fbb186c5f7?auto=format&fit=crop&w=1000&q=80" 
-                alt="Site engineers at work" 
-                className="w-full h-[440px] object-cover"
-              />
+            <img 
+            src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1000&q=80" 
+            alt="Site engineers at work" 
+            className="w-full h-[440px] object-cover"
+            />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
               
               <div className="absolute bottom-6 left-6 right-6 p-4 bg-white/95 backdrop-blur-md rounded-xl border border-white/20 shadow-lg text-slate-900">
